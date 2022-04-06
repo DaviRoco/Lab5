@@ -1,18 +1,14 @@
 <!doctype html>
 <html lang="en-US" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="utf-8">
-    </meta>
-    <meta http-equiv="Content-Type" content="text/html">
-    </meta>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="Content-Type" content="text/html"></meta>
     <title>Spring Boot Journal</title>
 </head>
-
 <body>
 <div>
     <h1>Spring Boot Journal</h1>
-    <a href="/agregarEntrada">agregar</a>
+    <a href="/agregarEntrada">Add entry</a>
     <ul>
         <div th:each="entry,status : ${journal}">
             <li>
@@ -27,10 +23,12 @@
                         <p><span th:text="${entry.summary}">SUMMARY</span></p>
                     </div>
                 </div>
+                <a th:href="@{/editar/{id}(id=${entry.id})}">Editar</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a th:href="@{/borrar/{id}(id=${entry.id})}">Borrar</a>
             </li>
         </div>
     </ul>
 </div>
 </body>
-
 </html>

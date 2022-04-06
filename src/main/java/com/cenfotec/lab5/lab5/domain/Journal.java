@@ -1,23 +1,23 @@
 package com.cenfotec.lab5.lab5.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
 
 @Entity
 public class Journal {
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private Date created;
     private String summary;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID")
+    private List<Author> authors;
 
     @Transient
     private SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
@@ -65,6 +65,14 @@ public class Journal {
 
     public String getCreatedAsShort() {
         return format.format(created);
+    }
+
+    public void setAuthors(List<Author> authors){
+        this.authors = authors;
+    }
+
+    public List<Author> getAuthors(){
+        return this.authors;
     }
 
     public String toString() {
